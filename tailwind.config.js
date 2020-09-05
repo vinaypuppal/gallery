@@ -2,8 +2,8 @@ module.exports = {
   future: {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
-    darkModeVariant: true,
   },
+  experimental: 'all',
   purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {},
