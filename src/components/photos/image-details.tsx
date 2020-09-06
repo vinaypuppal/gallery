@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import clsx from 'clsx';
 import useSwr from 'swr';
 
-import { Photo } from '../../services/unsplash/types';
+import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
 import { Picture } from './image';
 import { useRouter } from 'next/router';
 import { unsplash, toJson } from '../../services/unsplash';
@@ -30,7 +30,7 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
         style={{
           backgroundColor: color,
         }}>
-        <Picture photo={photo} className="flex-1" />
+        <Picture photo={photo} className="flex-1" photoType={PHOTO_TYPES.regular} />
       </div>
       <div className={clsx('flex w-11/12 p-4 flex-col mx-auto')}>
         <div className="mt-4 mr-10">

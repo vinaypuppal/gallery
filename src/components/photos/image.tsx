@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
 
-import { Photo } from '../../services/unsplash/types';
+import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
 import clsx from 'clsx';
 
 export const Image: FunctionComponent<{ photo: Photo; index: number }> = ({ photo, index }) => {
@@ -18,11 +18,12 @@ export const Image: FunctionComponent<{ photo: Photo; index: number }> = ({ phot
   );
 };
 
-export const Picture: FunctionComponent<{ photo: Photo; className?: string }> = ({
+export const Picture: FunctionComponent<{ photo: Photo; className?: string; photoType?: PHOTO_TYPES }> = ({
   photo,
+  photoType = PHOTO_TYPES.small,
   className = 'absolute top-0 left-0 rounded-lg',
 }) => {
-  const jpegUrl = photo.urls.regular;
+  const jpegUrl = photo.urls[photoType];
   const webpImageUrl = new URL(jpegUrl);
   webpImageUrl.searchParams.set('fm', 'webp');
   return (

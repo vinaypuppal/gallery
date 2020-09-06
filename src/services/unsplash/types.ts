@@ -25,3 +25,8 @@ export type Photo = {
     tagline: string;
   };
 };
+
+export enum PHOTO_TYPES {
+  regular = 'regular',
+  small = 'small',
+}
