@@ -11,6 +11,7 @@ import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 export const PhotoGrid: FunctionComponent = () => {
   const endRef = useRef<HTMLDivElement>();
   const columnCount = useColumns(['(min-width: 768px)', '(min-width: 640px)'], [3, 2], 1);
+
   const { data, error, size, setSize } = useSWRInfinite<Photo[]>(
     (pageIndex) => {
       return [pageIndex + 1, config.perPage];
