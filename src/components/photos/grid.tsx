@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useRef } from 'react';
 import { useSWRInfinite } from 'swr';
+import { useRouter } from 'next/router';
 
 import { unsplash, toJson } from '../../services/unsplash';
 import { Photo } from '../../services/unsplash/types';
@@ -7,8 +8,12 @@ import { config } from '../../config';
 import { Image } from './image';
 import { useColumns } from '../../hooks/useColumns';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
+import { Modal } from '../modal';
+import { PhotoDetails } from './image-details';
 
 export const PhotoGrid: FunctionComponent = () => {
+  const { query, push } = useRouter();
+
   const endRef = useRef<HTMLDivElement>();
   const columnCount = useColumns(['(min-width: 768px)', '(min-width: 640px)'], [3, 2], 1);
 
@@ -34,6 +39,10 @@ export const PhotoGrid: FunctionComponent = () => {
     },
   });
 
+  function toggleModal() {
+    push('/', '/', { shallow: true }).catch((error) => alert(error.toString()));
+  }
+
   const photos: Photo[] = data ? data.flatMap((d) => d) : [];
   const columns = Array.from({ length: columnCount }).map(() => []);
   const columnHeights = Array.from({ length: columnCount }).map(() => 0);
@@ -42,6 +51,8 @@ export const PhotoGrid: FunctionComponent = () => {
     columns[shortColumnIndex].push(photo);
     columnHeights[shortColumnIndex] += photo.height;
   });
+
+  const activePhoto = photos.find((photo) => photo.id === query.id);
 
   return (
     <main className="p-4 mt-4 sm:px-6 lg:px-16">
@@ -57,6 +68,15 @@ export const PhotoGrid: FunctionComponent = () => {
           ))}
         </div>
       </div>
+      {activePhoto && (
+        <Modal
+          modalClassNames="max-w-4xl mx-auto"
+          showModal={!!query.id && !!activePhoto}
+          toggleModal={toggleModal}
+          closeOnBackdropClick>
+          <PhotoDetails photo={activePhoto} toggleModal={toggleModal} />
+        </Modal>
+      )}
     </main>
   );
 };

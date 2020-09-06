@@ -1,14 +1,13 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 
 import { MainHeader } from '../../components/headers/main';
-import { SearchInput } from '../../components/search';
+import { PhotoDetails } from '../../components/photos/image-details';
 
 const ImageDetails = () => {
-  const { query } = useRouter();
   return (
     <>
       <MainHeader />
+      <PhotoDetails />
     </>
   );
 };

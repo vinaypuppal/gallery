@@ -14,4 +14,14 @@ export type Photo = {
   likes: number;
   created_at: string;
   categories: string[];
+  links: {
+    download: string;
+  };
+  sponsorship: {
+    sponsor: {
+      name: string;
+      bio: string;
+    };
+    tagline: string;
+  };
 };
