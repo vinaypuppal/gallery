@@ -10,8 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-        display: ['Gilroy', ...defaultTheme.fontFamily.sans],
+        sans: ['Avenir', ...defaultTheme.fontFamily.sans],
+        display: ['Avenir', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         grape: '#A65FEC',
