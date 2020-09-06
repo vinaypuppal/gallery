@@ -7,5 +7,5 @@
   X-XSS-Protection: 1; mode=block
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy: default-src 'self'; base-uri 'self'; object-src 'none'; connect-src 'self' https://api.unsplash.com; img-src 'self' https://images.unsplash.com; frame-ancestors 'self';
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self'; base-uri 'self'; object-src 'none'; connect-src 'self' https://api.unsplash.com; img-src 'self' https://images.unsplash.com; frame-ancestors 'self';
   Link: <https://api.unsplash.com/>; rel=preconnect, <https://images.unsplash.com/>; rel=preconnect
