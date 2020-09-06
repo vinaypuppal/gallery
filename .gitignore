@@ -121,3 +121,5 @@ out_publish
 
 # osx
 .DS_Store
+# Local Netlify folder
+.netlify
