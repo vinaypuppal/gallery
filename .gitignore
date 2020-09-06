@@ -115,5 +115,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# netlify
+out_functions
+out_publish
+
 # osx
 .DS_Store

@@ -8,7 +8,8 @@
   "license": "UNLICENSE",
   "scripts": {
     "dev": "next",
-    "build": "next build && next export -o build",
+    "build": "next build",
+    "postbuild": "next-on-netlify && cp _headers out_publish/",
     "start": "NODE_ENV=production next start",
     "format": "prettier --write './**/*.+(js|jsx|json|md|tsx|ts|gql|css)'"
   },
@@ -23,7 +24,8 @@
     "prettier": "^2.1.1",
     "react-refresh": "^0.8.3",
     "tailwindcss": "^1.8.2",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "next-on-netlify": "^2.4.0"
   },
   "dependencies": {
     "@types/react-dom": "^16.9.8",
@@ -35,8 +37,8 @@
     "preact-render-to-string": "^5.1.4",
     "react": "github:preact-compat/react#1.0.0",
     "react-dom": "github:preact-compat/react-dom#1.0.0",
-    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
     "react-portal": "^4.2.1",
+    "react-ssr-prepass": "npm:preact-ssr-prepass@^1.0.1",
     "swr": "^0.3.2",
     "tinykeys": "^1.1.0",
     "unsplash-js": "^6.3.0",
