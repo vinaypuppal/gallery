@@ -10,6 +10,7 @@ import { useColumns } from '../../hooks/useColumns';
 import { useIntersectionObserver } from '../../hooks/useIntersectionObserver';
 import { Modal } from '../modal';
 import { PhotoDetails } from './image-details';
+import { GridPlaceholder } from '../emptystates/grid';
 
 export const PhotoGrid: FunctionComponent = () => {
   const { query, push } = useRouter();
@@ -44,7 +45,7 @@ export const PhotoGrid: FunctionComponent = () => {
   }
 
   const photos: Photo[] = data ? data.flatMap((d) => d) : [];
-  const columns = Array.from({ length: columnCount }).map(() => []);
+  const columns: Photo[][] = Array.from({ length: columnCount }).map(() => []);
   const columnHeights = Array.from({ length: columnCount }).map(() => 0);
   photos.forEach((photo) => {
     const shortColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
@@ -58,14 +59,18 @@ export const PhotoGrid: FunctionComponent = () => {
     <main className="p-4 mt-4 sm:px-6 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap">
-          {columns.map((column, index) => (
-            <div key={index} className="w-full sm:w-1/2 md:w-1/3">
-              {column.map((photo, index) => (
-                <Image key={photo.id} photo={photo} index={index} />
-              ))}
-              {columns.length !== 0 && <div className="w-20 h-20" ref={endRef} />}
-            </div>
-          ))}
+          {isLoadingInitialData ? (
+            <GridPlaceholder />
+          ) : (
+            columns.map((column, index) => (
+              <div key={index} className="w-full sm:w-1/2 md:w-1/3">
+                {column.map((photo, index) => (
+                  <Image key={photo.id} photo={photo} index={index} />
+                ))}
+                {columns.length !== 0 && <div className="w-20 h-20" ref={endRef} />}
+              </div>
+            ))
+          )}
         </div>
       </div>
       {activePhoto && (
