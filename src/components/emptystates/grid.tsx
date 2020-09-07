@@ -1,8 +1,10 @@
 import React from 'react';
+
 import { useColumns } from '../../hooks/useColumns';
+import { config } from '../../config';
 
 export const GridPlaceholder = () => {
-  const columnCount = useColumns(['(min-width: 768px)', '(min-width: 640px)'], [3, 2], 1);
+  const columnCount = useColumns(config.columnsMediaQueries, config.columns, config.defaultColumns);
 
   const columns: { width: number; height: number }[][] = Array.from({ length: columnCount }).map(() =>
     Array.from({ length: 3 }).map(() => ({

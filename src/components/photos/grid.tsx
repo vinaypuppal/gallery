@@ -16,7 +16,7 @@ export const PhotoGrid: FunctionComponent = () => {
   const { query, push } = useRouter();
 
   const endRef = useRef<HTMLDivElement>();
-  const columnCount = useColumns(['(min-width: 768px)', '(min-width: 640px)'], [3, 2], 1);
+  const columnCount = useColumns(config.columnsMediaQueries, config.columns, config.defaultColumns);
 
   const { data, error, size, setSize } = useSWRInfinite<Photo[]>(
     (pageIndex) => {
