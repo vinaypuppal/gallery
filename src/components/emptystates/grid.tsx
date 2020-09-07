@@ -6,10 +6,10 @@ import { config } from '../../config';
 export const GridPlaceholder = () => {
   const columnCount = useColumns(config.columnsMediaQueries, config.columns, config.defaultColumns);
 
-  const columns: { width: number; height: number }[][] = Array.from({ length: columnCount }).map(() =>
+  const columns: { width: number; height: number }[][] = Array.from({ length: columnCount }).map((_, index) =>
     Array.from({ length: 3 }).map(() => ({
       width: 480,
-      height: 360,
+      height: index % 2 === 0 ? 180 : 360,
     }))
   );
 
