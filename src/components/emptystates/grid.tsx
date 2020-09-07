@@ -16,7 +16,7 @@ export const GridPlaceholder = () => {
   return (
     <>
       {columns.map((column, index) => (
-        <div key={`placeholder-${index}`} className="w-full px-2 sm:w-1/2 md:w-1/3">
+        <div key={`placeholder-${index}`} className="w-1/2 px-2 md:w-1/3">
           {column.map((photo, index) => (
             <div
               key={`placeholder-${index}`}

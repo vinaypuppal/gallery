@@ -56,14 +56,14 @@ export const PhotoGrid: FunctionComponent = () => {
   const activePhoto = photos.find((photo) => photo.id === query.id);
 
   return (
-    <main className="p-4 mt-4 sm:px-6 lg:px-16">
+    <main className="p-2 mt-4 sm:px-6 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-wrap">
           {isLoadingInitialData ? (
             <GridPlaceholder />
           ) : (
             columns.map((column, index) => (
-              <div key={index} className="w-full sm:w-1/2 md:w-1/3">
+              <div key={index} className="w-1/2 md:w-1/3">
                 {column.map((photo, index) => (
                   <Image key={photo.id} photo={photo} index={index} />
                 ))}
