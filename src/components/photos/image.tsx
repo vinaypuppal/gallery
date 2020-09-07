@@ -8,6 +8,9 @@ export const Image: FunctionComponent<{ photo: Photo; index: number }> = ({ phot
   return (
     <Link key={photo.id} shallow href={`/?id=${photo.id}`} as={`/images/${photo.id}`}>
       <a key={photo.id} className="relative block mx-2 mb-4">
+        <span className="sr-only">
+          Click this to open {photo.sponsorship ? photo.sponsorship.tagline : photo.id} photo
+        </span>
         <div
           className={clsx('relative bg-gray-100 rounded-lg')}
           style={{ paddingBottom: `${(photo.height / photo.width) * 100}%`, backgroundColor: photo.color }}>
@@ -29,7 +32,12 @@ export const Picture: FunctionComponent<{ photo: Photo; className?: string; phot
   return (
     <picture className={clsx('w-full', className)}>
       <source srcSet={webpImageUrl.href} type="image/webp" />
-      <img loading="lazy" className={clsx('w-full', className)} src={jpegUrl} />
+      <img
+        alt={photo.sponsorship ? photo.sponsorship.tagline : photo.id}
+        loading="lazy"
+        className={clsx('w-full', className)}
+        src={jpegUrl}
+      />
     </picture>
   );
 };
