@@ -30,3 +30,13 @@ export enum PHOTO_TYPES {
   regular = 'regular',
   small = 'small',
 }
+
+export type AutoCompleteResult = {
+  fuzzy: {
+    query: string;
+  }[];
+};
+
+export type SearchResults = {
+  results: Photo[];
+};

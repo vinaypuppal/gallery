@@ -1,8 +1,21 @@
 import React, { useEffect, useRef } from 'react';
 import tinykeys from 'tinykeys';
+import useSWR from 'swr';
+import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
+import { useRouter } from 'next/router';
+
+import { unsplashAutoComplete } from '../../services/unsplash';
+import { AutoCompleteResult } from '../../services/unsplash/types';
 
 export const SearchInput = () => {
   const searchInputRef = useRef<HTMLInputElement>();
+  const router = useRouter();
+  const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || null);
+  const { data: suggestions, isValidating } = useSWR<AutoCompleteResult>(() => [searchTerm], unsplashAutoComplete);
+
+  function handleSearchTermChange(event) {
+    setSearchTerm(event.target.value);
+  }
 
   useEffect(() => {
     let unsubscribe = tinykeys(window, {
@@ -36,14 +49,33 @@ export const SearchInput = () => {
             />
           </svg>
         </label>
-        <input
-          ref={searchInputRef}
-          type="search"
-          name="search"
-          id="search-input"
-          placeholder={`Search photos (Press "/" to focus)`}
-          className="flex-auto py-6 text-base leading-6 text-gray-500 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
-        />
+        <Combobox
+          className="w-full"
+          onSelect={(value) =>
+            router.replace(`/?search=${encodeURIComponent(value)}`, undefined, {
+              shallow: true,
+            })
+          }>
+          <ComboboxInput
+            ref={searchInputRef}
+            type="search"
+            name="search"
+            id="search-input"
+            selectOnClick
+            onChange={handleSearchTermChange}
+            placeholder={`Search photos (Press "/" to focus)`}
+            className="flex-auto w-full py-6 text-base leading-6 text-gray-500 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
+          />
+          {suggestions && suggestions.fuzzy.length !== 0 && (
+            <ComboboxPopover className="shadow-popup">
+              <ComboboxList persistSelection>
+                {suggestions.fuzzy.map((suggestion) => (
+                  <ComboboxOption key={suggestion.query} value={suggestion.query} />
+                ))}
+              </ComboboxList>
+            </ComboboxPopover>
+          )}
+        </Combobox>
       </div>
     </form>
   );

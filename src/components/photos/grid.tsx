@@ -3,7 +3,7 @@ import { useSWRInfinite } from 'swr';
 import { useRouter } from 'next/router';
 
 import { unsplash, toJson } from '../../services/unsplash';
-import { Photo } from '../../services/unsplash/types';
+import { Photo, SearchResults } from '../../services/unsplash/types';
 import { config } from '../../config';
 import { Image } from './image';
 import { useColumns } from '../../hooks/useColumns';
@@ -14,15 +14,18 @@ import { GridPlaceholder } from '../emptystates/grid';
 
 export const PhotoGrid: FunctionComponent = () => {
   const { query, push } = useRouter();
-
+  const searchKeyword = query.search;
   const endRef = useRef<HTMLDivElement>();
   const columnCount = useColumns(config.columnsMediaQueries, config.columns, config.defaultColumns);
 
-  const { data, error, size, setSize } = useSWRInfinite<Photo[]>(
+  const { data, error, size, setSize } = useSWRInfinite<Photo[] | SearchResults>(
     (pageIndex) => {
-      return [pageIndex + 1, config.perPage];
+      return [pageIndex + 1, config.perPage, searchKeyword];
     },
-    (page, perPage) => unsplash.photos.listPhotos(page, perPage).then(toJson)
+    (page, perPage, searchKeyword) =>
+      searchKeyword
+        ? unsplash.search.photos(searchKeyword, page, perPage).then(toJson)
+        : unsplash.photos.listPhotos(page, perPage).then(toJson)
   );
   const isLoadingInitialData = !data && !error;
   const isLoadingMore = isLoadingInitialData || (size > 0 && data && typeof data[size - 1] === 'undefined');
@@ -44,7 +47,7 @@ export const PhotoGrid: FunctionComponent = () => {
     push('/', '/', { shallow: true }).catch((error) => alert(error.toString()));
   }
 
-  const photos: Photo[] = data ? data.flatMap((d) => d) : [];
+  const photos: Photo[] = data ? data.flatMap((d) => (Array.isArray(d) ? d : d.results)) : [];
   const columns: Photo[][] = Array.from({ length: columnCount }).map(() => []);
   const columnHeights = Array.from({ length: columnCount }).map(() => 0);
   photos.forEach((photo) => {
