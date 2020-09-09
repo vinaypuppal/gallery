@@ -14,7 +14,7 @@ module.exports = {
         display: ['Avenir', ...defaultTheme.fontFamily.sans],
       },
       colors: {
-        grape: '#A65FEC',
+        grape: '#70da44',
       },
       opacity: {
         10: '0.1',

@@ -2,11 +2,11 @@ import React from 'react';
 
 export const MainHeader = () => {
   return (
-    <header className="p-4 h-22 sm:h-40 sm:items-center sm:flex bg-gradient-to-r from-purple-700 to-grape sm:px-6 lg:px-16">
+    <header className="p-4 h-22 sm:h-40 sm:items-center sm:flex bg-gradient-to-r from-green-600 to-grape sm:px-6 lg:px-16">
       <div className="max-w-7xl">
         <div className="flex">
           <svg
-            className="text-purple-400 w-14 h-14 sm:w-20 sm:h-20"
+            className="text-green-400 w-14 h-14 sm:w-20 sm:h-20"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
@@ -20,8 +20,11 @@ export const MainHeader = () => {
           </svg>
           <h1 className="ml-1 text-xl font-semibold text-gray-50 font-display sm:text-4xl sm:leading-10">
             Infinite Gallery
-            <span className="block text-purple-300">
-              using <a href="https://unsplash.com/developers">unsplash image API</a>
+            <span className="block text-green-300">
+              using{' '}
+              <a target="_blank" rel="noopener noreferrer" href="https://unsplash.com/developers">
+                unsplash image API
+              </a>
             </span>
           </h1>
         </div>
