@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { MainHeader } from '../../components/headers/main';
 import { PhotoDetails } from '../../components/photos/image-details';
+import { BackHomeHeader } from '../../components/headers/back-home';
 
 const ImageDetails = () => {
   return (
     <>
-      <MainHeader />
+      <BackHomeHeader />
       <PhotoDetails />
     </>
   );

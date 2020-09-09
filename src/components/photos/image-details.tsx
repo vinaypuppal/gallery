@@ -6,33 +6,32 @@ import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
 import { Picture } from './image';
 import { useRouter } from 'next/router';
 import { unsplash, toJson } from '../../services/unsplash';
+import { PhotoDetailsPlaceholder } from '../emptystates/image-details';
+import { BackHomeHeader } from '../headers/back-home';
 
 export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () => void }> = ({
   photo: imageDetails,
   toggleModal,
 }) => {
   const { query } = useRouter();
-  const { data: photo } = useSwr<Photo>(query.id, (id) => unsplash.photos.getPhoto(id).then(toJson), {
+  const { data: photo, error } = useSwr<Photo>(query.id, (id) => unsplash.photos.getPhoto(id).then(toJson), {
     initialData: imageDetails,
   });
 
-  if (!photo) {
-    return null;
+  if (error) {
+    return <p className="p-4 text-base text-red-500">{error.toString()}</p>;
   }
 
-  const { description, color, sponsorship, created_at, likes, links } = photo;
+  if (!photo) {
+    return <PhotoDetailsPlaceholder />;
+  }
+
+  const { description, color, sponsorship, created_at, likes, links, height, width } = photo;
 
   return (
-    <div className={clsx('relative flex w-full flex-col-reverse max-w-4xl mx-auto pb-2', !toggleModal && 'pb-10')}>
+    <div className={clsx('relative w-full sm:max-w-7xl mx-auto')}>
       {toggleModal ? <CloseButton onClick={toggleModal} /> : null}
-      <div
-        className={clsx('relative bg-gray-100 rounded-lg w-11/12 mx-auto')}
-        style={{
-          backgroundColor: color,
-        }}>
-        <Picture photo={photo} className="flex-1" photoType={PHOTO_TYPES.regular} />
-      </div>
-      <div className={clsx('flex w-11/12 p-4 flex-col mx-auto')}>
+      <div className={clsx('flex w-full px-2 sm:px-6 flex-col mx-auto', toggleModal ? 'my-4' : 'mb-4')}>
         <div className="mt-4 mr-10">
           <h3 className="mb-2 text-2xl font-bold font-display">
             {sponsorship && sponsorship.tagline ? sponsorship.tagline : new Date(created_at).toLocaleString()}
@@ -62,6 +61,26 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
             className="block px-4 py-2 border border-gray-300 border-solid rounded-md">
             Download
           </a>
+        </div>
+      </div>
+      <div className="hidden mx-auto sm:block" style={{ maxWidth: `calc((100vh - 175px) * ${width / height})` }}>
+        <div
+          className={clsx('relative bg-gray-100 sm:rounded-lg w-full mx-auto')}
+          style={{
+            paddingBottom: `${(height / width) * 100}%`,
+            backgroundColor: color,
+          }}>
+          <Picture photo={photo} photoType={PHOTO_TYPES.regular} />
+        </div>
+      </div>
+      <div className="mx-auto sm:hidden">
+        <div
+          className={clsx('relative bg-gray-100 sm:rounded-lg w-full mx-auto')}
+          style={{
+            paddingBottom: `${(height / width) * 100}%`,
+            backgroundColor: color,
+          }}>
+          <Picture photo={photo} photoType={PHOTO_TYPES.regular} />
         </div>
       </div>
     </div>

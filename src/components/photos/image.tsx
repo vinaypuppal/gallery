@@ -24,7 +24,7 @@ export const Image: FunctionComponent<{ photo: Photo; index: number }> = ({ phot
 export const Picture: FunctionComponent<{ photo: Photo; className?: string; photoType?: PHOTO_TYPES }> = ({
   photo,
   photoType = PHOTO_TYPES.small,
-  className = 'absolute top-0 left-0 rounded-lg',
+  className = 'absolute top-0 left-0 sm:rounded-lg',
 }) => {
   const jpegUrl = photo.urls[photoType];
   const webpImageUrl = new URL(jpegUrl);

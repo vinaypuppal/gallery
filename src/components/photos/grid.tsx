@@ -78,7 +78,7 @@ export const PhotoGrid: FunctionComponent = () => {
       </div>
       {activePhoto && (
         <Modal
-          modalClassNames="max-w-4xl mx-auto"
+          modalClassNames="w-full sm:max-w-4xl sm:w-11/12 mx-auto"
           showModal={!!query.id && !!activePhoto}
           toggleModal={toggleModal}
           closeOnBackdropClick>

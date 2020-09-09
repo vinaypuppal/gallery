@@ -61,7 +61,11 @@ export const Modal: FunctionComponent<ModalProps> = ({
             'absolute inset-0 flex flex-col w-full overflow-x-auto bg-gray-100 bg-opacity-75',
             backdropClassNames
           )}>
-          <div className={clsx('bg-white shadow-md rounded m-auto relative flex flex-col', modalClassNames)}>
+          <div
+            className={clsx(
+              'bg-white shadow-md rounded min-h-screen sm:min-h-0 sm:m-auto relative flex flex-col',
+              modalClassNames
+            )}>
             {children}
           </div>
         </div>
