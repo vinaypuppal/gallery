@@ -5,7 +5,7 @@ export const BackHomeHeader = () => {
   return (
     <header className="border-b border-gray-100 border-solid">
       <Link href="/">
-        <a className="flex items-center w-full px-2 py-2 text-sm text-gray-400">
+        <a className="flex items-center w-full px-2 py-2 mx-auto text-sm text-gray-400 max-w-7xl">
           <span className="mr-1">
             <svg
               className="w-4 h-4 text-gray-400"
