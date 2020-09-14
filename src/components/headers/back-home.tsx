@@ -1,10 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export const BackHomeHeader = () => {
+  const { query } = useRouter();
+  const searchKeyword = query.search;
+  const href = searchKeyword ? { pathname: '/', query: { search: searchKeyword } } : '/';
   return (
     <header className="border-b border-gray-100 border-solid">
-      <Link href="/">
+      <Link href={href}>
         <a className="flex items-center w-full px-2 py-2 mx-auto text-sm text-gray-400 max-w-7xl">
           <span className="mr-1">
             <svg

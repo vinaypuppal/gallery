@@ -44,7 +44,8 @@ export const PhotoGrid: FunctionComponent = () => {
   });
 
   function toggleModal() {
-    push('/', '/', { shallow: true }).catch((error) => alert(error.toString()));
+    const href = searchKeyword ? { pathname: '/', query: { search: searchKeyword } } : '/';
+    push(href, href, { shallow: true }).catch((error) => alert(error.toString()));
   }
 
   const photos: Photo[] = data ? data.flatMap((d) => (Array.isArray(d) ? d : d.results)) : [];
@@ -67,8 +68,8 @@ export const PhotoGrid: FunctionComponent = () => {
           ) : (
             columns.map((column, index) => (
               <div key={index} className="w-1/2 md:w-1/3">
-                {column.map((photo, index) => (
-                  <Image key={photo.id} photo={photo} index={index} />
+                {column.map((photo) => (
+                  <Image key={photo.id} photo={photo} />
                 ))}
                 {columns.length !== 0 && <div className="w-20 h-20" ref={endRef} />}
               </div>

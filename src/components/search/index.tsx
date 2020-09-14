@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import tinykeys from 'tinykeys';
-import useSWR from 'swr';
 import { Combobox, ComboboxInput, ComboboxPopover, ComboboxList, ComboboxOption } from '@reach/combobox';
 import { useRouter } from 'next/router';
+import tinykeys from 'tinykeys';
+import useSWR from 'swr';
 
 import { unsplashAutoComplete } from '../../services/unsplash';
 import { AutoCompleteResult } from '../../services/unsplash/types';
@@ -10,7 +10,7 @@ import { AutoCompleteResult } from '../../services/unsplash/types';
 export const SearchInput = () => {
   const searchInputRef = useRef<HTMLInputElement>();
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || null);
+  const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || '');
   const { data: suggestions, isValidating } = useSWR<AutoCompleteResult>(() => [searchTerm], unsplashAutoComplete);
 
   function handleSearchTermChange(event) {
@@ -28,6 +28,13 @@ export const SearchInput = () => {
       unsubscribe();
     };
   });
+
+  useEffect(() => {
+    const search = router.query.search;
+    if (search && searchTerm === '') {
+      setSearchTerm(search);
+    }
+  }, [router.query.search, searchTerm]);
 
   return (
     <form className="sticky top-0 z-50 px-4 bg-white shadow sm:px-6 lg:px-16">
@@ -62,7 +69,10 @@ export const SearchInput = () => {
             name="search"
             id="search-input"
             selectOnClick
+            // @ts-ignore
+            value={searchTerm}
             onChange={handleSearchTermChange}
+            autocomplete={false}
             placeholder={`Search photos (Press "/" to focus)`}
             className="flex-auto w-full py-6 text-base leading-6 text-gray-500 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
           />
