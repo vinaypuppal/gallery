@@ -28,21 +28,16 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
     return <PhotoDetailsPlaceholder />;
   }
 
-  const { description, color, sponsorship, created_at, height, width, alt_description, user } = photo;
+  const { color, height, width } = photo;
 
-  const title =
-    alt_description ||
-    (sponsorship && sponsorship.tagline ? sponsorship.tagline : new Date(created_at).toLocaleString());
-  const detailedDescription = user.bio || description;
+  const { title, description } = getPhotoDetails(photo);
   return (
     <div className={clsx('relative w-full sm:max-w-7xl mx-auto')}>
       {toggleModal ? <CloseButton onClick={toggleModal} /> : null}
       <div className={clsx('flex w-full px-2 sm:px-6 flex-col mx-auto sm:items-center', toggleModal ? 'my-2' : 'mb-2')}>
         <div className="mt-4 mr-10">
           <h3 className="mb-2 text-xl font-bold capitalize sm:text-2xl sm:text-center font-display">{title}</h3>
-          {detailedDescription && (
-            <p className="max-w-4xl mx-auto mb-2 text-base sm:text-center">{detailedDescription}</p>
-          )}
+          {description && <p className="max-w-4xl mx-auto mb-2 text-base sm:text-center">{description}</p>}
         </div>
       </div>
       <div
@@ -80,7 +75,8 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
   photo,
   className = 'max-w-md mx-auto mb-1',
 }) => {
-  const { likes = 0, links, views = 0, downloads = 0, alt_description, user } = photo;
+  const { links } = photo;
+  const { title, description, likes, views, downloads } = getPhotoDetails(photo);
 
   async function onShareClick() {
     if (!window.navigator.share) {
@@ -92,22 +88,24 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
       }
     } else {
       try {
-        const isWebpSupported = await supportsImgType('image/webp');
-        const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
-        const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
         const shareData: { title: string; text: string; url: string; files?: File[] } = {
-          title: alt_description,
-          text: user.bio,
+          title: title,
+          text: description,
           url: window.location.href,
         };
-        const files = [
-          new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
-            type: isWebpSupported ? 'image/webp' : 'image/jpeg',
-          }),
-        ];
-        // @ts-ignore
-        if ('canShare' in window.navigator && window.navigator.canShare({ files })) {
-          shareData.files = files;
+
+        // Safari: Has a bug which does not allow sharing after xhr call https://stackoverflow.com/questions/56046434/how-to-use-webshareapi-preceded-by-an-ajax-call-in-safari/59881576#59881576
+        if ('canShare' in window.navigator) {
+          const isWebpSupported = await supportsImgType('image/webp');
+          const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
+          const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
+          const files = [
+            new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
+              type: isWebpSupported ? 'image/webp' : 'image/jpeg',
+            }),
+          ];
+          // @ts-ignore
+          if (window.navigator.canShare({ files })) shareData.files = files;
         }
         await window.navigator.share(shareData);
       } catch (error) {
@@ -170,3 +168,20 @@ const CloseButton: FunctionComponent<{ onClick: () => void }> = ({ onClick }) =>
     </button>
   );
 };
+
+function getPhotoDetails(photo: Photo) {
+  const { description, sponsorship, created_at, alt_description, user, likes = 0, views = 0, downloads = 0 } = photo;
+
+  const title =
+    alt_description ||
+    (sponsorship && sponsorship.tagline ? sponsorship.tagline : new Date(created_at).toLocaleString());
+  const detailedDescription = user.bio || description;
+
+  return {
+    title,
+    description: detailedDescription,
+    likes,
+    downloads,
+    views,
+  };
+}
