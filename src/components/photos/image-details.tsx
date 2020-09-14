@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import useSwr from 'swr';
 import { createSnackbar } from '@snackbar/core';
@@ -75,8 +75,24 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
   photo,
   className = 'max-w-md mx-auto mb-1',
 }) => {
+  const [files, setFiles] = useState<File[]>(null);
   const { links } = photo;
   const { title, description, likes, views, downloads } = getPhotoDetails(photo);
+
+  useEffect(() => {
+    async function getFilesToShare() {
+      const isWebpSupported = await supportsImgType('image/webp');
+      const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
+      const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
+      const files = [
+        new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
+          type: isWebpSupported ? 'image/webp' : 'image/jpeg',
+        }),
+      ];
+      setFiles(files);
+    }
+    getFilesToShare();
+  }, [photo.id]);
 
   async function onShareClick() {
     if (!window.navigator.share) {
@@ -93,17 +109,8 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
           text: description,
           url: window.location.href,
         };
-
         // Safari: Has a bug which does not allow sharing after xhr call https://stackoverflow.com/questions/56046434/how-to-use-webshareapi-preceded-by-an-ajax-call-in-safari/59881576#59881576
         if ('canShare' in window.navigator) {
-          const isWebpSupported = await supportsImgType('image/webp');
-          const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
-          const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
-          const files = [
-            new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
-              type: isWebpSupported ? 'image/webp' : 'image/jpeg',
-            }),
-          ];
           // @ts-ignore
           if (window.navigator.canShare({ files })) shareData.files = files;
         }
