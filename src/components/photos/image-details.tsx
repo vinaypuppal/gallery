@@ -111,7 +111,7 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
         }
         await window.navigator.share(shareData);
       } catch (error) {
-        createSnackbar(`Failed to share!`, { timeout: 5000 });
+        createSnackbar(`Failed to share!, ${error.toString()}`, { timeout: 5000 });
       }
     }
   }
