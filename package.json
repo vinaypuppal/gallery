@@ -29,10 +29,12 @@
   },
   "dependencies": {
     "@reach/combobox": "^0.11.2",
+    "@snackbar/core": "^1.7.0",
     "@types/react-dom": "^16.9.8",
     "@types/react-portal": "^4.0.2",
     "@types/unsplash-js": "^6.0.1",
     "clsx": "^1.1.1",
+    "copee": "^1.0.6",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^9.4.0",
     "next-seo": "^4.7.3",

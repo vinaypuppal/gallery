@@ -1149,6 +1149,11 @@
     fs-extra "^9.0.1"
     path-to-regexp "^6.1.0"
 
+"@snackbar/core@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@snackbar/core/-/core-1.7.0.tgz#a12708f2df8dbb0f8de885b8460c94ab3f659333"
+  integrity sha512-CxBEpC/boiGc0PGASQSYU4YmPFkyBhki8n2uJad593VlHcISJjgMMoD1Kk/sdqkEYxKF9zx64aY5F/fP1VfCjg==
+
 "@types/color-name@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
@@ -2274,6 +2279,11 @@ convert-source-map@^0.3.3:
   version "0.3.5"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-0.3.5.tgz#f1d802950af7dd2631a1febe0596550c86ab3190"
   integrity sha1-8dgClQr33SYxof6+BZZVDIarMZA=
+
+copee@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/copee/-/copee-1.0.6.tgz#82b1b348b7df9dac1a5298dfdfa5063ae7dce6c3"
+  integrity sha512-l5mIlUejgG4Q+pb8yoDPDFI6ehjx4u6vaUd2tv4HxaaZ3vMkuQmmFStU1BNmomj3DXtht6mjD4ZiUOVu72v/QA==
 
 copy-concurrently@^1.0.0:
   version "1.0.5"

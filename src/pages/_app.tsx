@@ -3,6 +3,7 @@ import { DefaultSeo } from 'next-seo';
 
 import '../styles/index.css';
 import '@reach/combobox/styles.css';
+import '@snackbar/core/dist/snackbar.min.css';
 
 function MyApp({ Component, pageProps }) {
   return (
