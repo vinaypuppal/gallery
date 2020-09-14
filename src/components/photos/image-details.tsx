@@ -9,6 +9,7 @@ import { Picture, getPhotoUrl } from './image';
 import { useRouter } from 'next/router';
 import { unsplash, toJson } from '../../services/unsplash';
 import { PhotoDetailsPlaceholder } from '../emptystates/image-details';
+import { supportsImgType } from '../../utils';
 
 export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () => void }> = ({
   photo: imageDetails,
@@ -91,14 +92,19 @@ const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
       }
     } else {
       try {
-        const { webpUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
-        const photoBlob = await fetch(webpUrl).then((res) => res.blob());
+        const isWebpSupported = await supportsImgType('image/webp');
+        const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
+        const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
         const shareData: { title: string; text: string; url: string; files?: File[] } = {
           title: alt_description,
           text: user.bio,
           url: window.location.href,
         };
-        const files = [new File([photoBlob], `${photo.id}.webp`, { type: 'image/webp' })];
+        const files = [
+          new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
+            type: isWebpSupported ? 'image/webp' : 'image/jpeg',
+          }),
+        ];
         // @ts-ignore
         if ('canShare' in window.navigator && window.navigator.canShare({ files })) {
           shareData.files = files;
