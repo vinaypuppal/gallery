@@ -10,7 +10,7 @@ import { AutoCompleteResult } from '../../services/unsplash/types';
 export const SearchInput = () => {
   const searchInputRef = useRef<HTMLInputElement>();
   const router = useRouter();
-  const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || '');
+  const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || null);
   const { data: suggestions, isValidating } = useSWR<AutoCompleteResult>(() => [searchTerm], unsplashAutoComplete);
 
   function handleSearchTermChange(event) {
@@ -31,7 +31,7 @@ export const SearchInput = () => {
 
   useEffect(() => {
     const search = router.query.search;
-    if (search && searchTerm === '') {
+    if (search && searchTerm === null) {
       setSearchTerm(search);
     }
   }, [router.query.search, searchTerm]);
@@ -68,7 +68,6 @@ export const SearchInput = () => {
             type="search"
             name="search"
             id="search-input"
-            selectOnClick
             // @ts-ignore
             value={searchTerm}
             onChange={handleSearchTermChange}
