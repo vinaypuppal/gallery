@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import clsx from 'clsx';
 
 import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
-import clsx from 'clsx';
+import { getPhotoUrl } from './utils';
 
 export const Image: FunctionComponent<{ photo: Photo }> = ({ photo }) => {
   const router = useRouter();
@@ -42,13 +43,3 @@ export const Picture: FunctionComponent<{ photo: Photo; className?: string; phot
     </picture>
   );
 };
-
-export function getPhotoUrl(photo: Photo, photoType: PHOTO_TYPES) {
-  const jpegUrl = photo.urls[photoType];
-  const webpImageUrl = new URL(jpegUrl);
-  webpImageUrl.searchParams.set('fm', 'webp');
-  return {
-    jpegUrl,
-    webpUrl: webpImageUrl.href,
-  };
-}

@@ -1,16 +1,15 @@
 import React, { FunctionComponent } from 'react';
-import { NextSeo } from 'next-seo';
-import clsx from 'clsx';
-import useSwr from 'swr';
-import { createSnackbar } from '@snackbar/core';
-import { toClipboard } from 'copee';
-
-import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
-import { Picture, getPhotoUrl } from './image';
 import { useRouter } from 'next/router';
-import { unsplash, toJson } from '../../services/unsplash';
+import { NextSeo } from 'next-seo';
+import useSwr from 'swr';
+import clsx from 'clsx';
+
+import { getPhotoDetails } from './utils';
 import { PhotoDetailsPlaceholder } from '../emptystates/image-details';
-import { supportsImgType } from '../../utils';
+import { Photo, PHOTO_TYPES } from '../../services/unsplash/types';
+import { unsplash, toJson } from '../../services/unsplash';
+import { PhotoStats } from './stats';
+import { Picture } from './image';
 
 export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () => void }> = ({
   photo: imageDetails,
@@ -67,86 +66,9 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
       </div>
       <PhotoStats
         photo={photo}
-        className="fixed bottom-0 left-0 max-w-xl px-3 py-2 mx-auto mt-4 border-t border-gray-100 border-solid sm:hidden bg-gray-50"
+        className="fixed bottom-0 left-0 max-w-xl px-3 py-2 mx-auto mt-4 sm:hidden bg-gray-50"
+        style={{ backdropFilter: 'saturate(180%) blur(5px)', background: 'hsla(0,0%,100%,0.8)' }}
       />
-    </div>
-  );
-};
-
-const PhotoStats: FunctionComponent<{ photo: Photo; className?: string }> = ({
-  photo,
-  className = 'max-w-md mx-auto mb-1',
-}) => {
-  const { links } = photo;
-  const { title, description, likes, views, downloads } = getPhotoDetails(photo);
-
-  async function onShareClick() {
-    if (!window.navigator.share) {
-      const success = toClipboard(window.location.href);
-      if (success) {
-        createSnackbar(`Copied link for sharing!`, { timeout: 5000 });
-      } else {
-        createSnackbar(`Failed to Copy!`, { timeout: 5000 });
-      }
-    } else {
-      try {
-        const shareData: { title: string; text: string; url: string; files?: File[] } = {
-          title: title,
-          text: description,
-          url: window.location.href,
-        };
-
-        // Safari: Has a bug which does not allow sharing after xhr call https://stackoverflow.com/questions/56046434/how-to-use-webshareapi-preceded-by-an-ajax-call-in-safari/59881576#59881576
-        if ('canShare' in window.navigator) {
-          const isWebpSupported = await supportsImgType('image/webp');
-          const { webpUrl, jpegUrl } = getPhotoUrl(photo, PHOTO_TYPES.regular);
-          const photoBlob = await fetch(isWebpSupported ? webpUrl : jpegUrl).then((res) => res.blob());
-          const files = [
-            new File([photoBlob], `${photo.id}.${isWebpSupported ? 'webp' : 'jpg'}`, {
-              type: isWebpSupported ? 'image/webp' : 'image/jpeg',
-            }),
-          ];
-          // @ts-ignore
-          if (window.navigator.canShare({ files })) shareData.files = files;
-        }
-        await window.navigator.share(shareData);
-      } catch (error) {
-        createSnackbar(`Failed to share!, ${error.toString()}`, { timeout: 5000 });
-      }
-    }
-  }
-
-  return (
-    <div className={clsx('flex justify-between w-full items-center', className)}>
-      <div>
-        <p className="text-sm font-extrabold text-center text-blue-600">{likes}</p>
-        <p className="text-xs font-medium text-center text-gray-500">Likes</p>
-      </div>
-      <div>
-        <p className="text-sm font-extrabold text-center text-pink-600">{views}</p>
-        <p className="text-xs font-medium text-center text-gray-500">Views</p>
-      </div>
-      <div>
-        <p className="text-sm font-extrabold text-center text-purple-600">{downloads}</p>
-        <p className="text-xs font-medium text-center text-gray-500">Downloads</p>
-      </div>
-      <div>
-        <a
-          target="_blank"
-          href={`${links.download}?force=true`}
-          rel="nofollow"
-          download
-          onClick={() => createSnackbar(`Downloading please wait`, { timeout: 5000 })}
-          className="inline-flex items-center px-2 py-1 text-xs font-medium leading-4 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded sm:px-3 sm:py-2 sm:text-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">
-          Download
-        </a>
-        <button
-          onClick={onShareClick}
-          type="button"
-          className="inline-flex items-center px-2 py-1 ml-2 text-xs font-medium leading-4 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded sm:text-sm sm:px-3 sm:py-2 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700">
-          Share
-        </button>
-      </div>
     </div>
   );
 };
@@ -170,20 +92,3 @@ const CloseButton: FunctionComponent<{ onClick: () => void }> = ({ onClick }) =>
     </button>
   );
 };
-
-function getPhotoDetails(photo: Photo) {
-  const { description, sponsorship, created_at, alt_description, user, likes = 0, views = 0, downloads = 0 } = photo;
-
-  const title =
-    alt_description ||
-    (sponsorship && sponsorship.tagline ? sponsorship.tagline : new Date(created_at).toLocaleString());
-  const detailedDescription = user.bio || description;
-
-  return {
-    title,
-    description: detailedDescription,
-    likes,
-    downloads,
-    views,
-  };
-}
