@@ -37,7 +37,7 @@ export const SearchInput = () => {
   }, [router.query.search, searchTerm]);
 
   return (
-    <form className="sticky top-0 z-50 px-4 bg-white shadow sm:px-6 lg:px-16">
+    <form className="sticky top-0 z-50 px-4 bg-white shadow sm:px-6 lg:px-16" autoComplete="off">
       <div className="flex mx-auto max-w-7xl">
         <label htmlFor="search-input" className="flex items-center flex-none pr-3">
           <span className="sr-only">Search photos</span>
@@ -68,10 +68,11 @@ export const SearchInput = () => {
             type="search"
             name="search"
             id="search-input"
+            selectOnClick
             // @ts-ignore
             value={searchTerm}
             onChange={handleSearchTermChange}
-            autocomplete={false}
+            autoComplete="off"
             placeholder={`Search photos (Press "/" to focus)`}
             className="flex-auto w-full py-6 text-base leading-6 text-gray-500 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400"
           />
