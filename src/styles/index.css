@@ -15,5 +15,5 @@
 /* Your own custom utilities */
 
 .snackbars {
-  z-index: 999999999;
+  z-index: 999999999 !important;
 }
