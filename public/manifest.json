@@ -1,0 +1,129 @@
+{
+  "dir": "ltr",
+  "lang": "English",
+  "name": "Infinite Gallery",
+  "short_name": "Infinite Galler",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "transparent",
+  "theme_color": "transparent",
+  "description": "Infinite Gallery using unsplash image API",
+  "orientation": "portrait-primary",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "/icons/ee85ae25-d697-b3d9-df12-eb5c4d038058.webPlatform.png",
+      "sizes": "44x44",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/96f67a7e-3193-f8a6-5e49-19ca1ad9ca06.webPlatform.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/bb67373a-db1c-3419-9d3e-21727b460796.webPlatform.png",
+      "sizes": "1240x600",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/20bff788-8f25-4127-4708-3282ab4a9aeb.webPlatform.png",
+      "sizes": "300x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/b142c098-e0c2-0f05-8cb1-47f16b460aea.webPlatform.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/2717102d-f88d-3fb0-8bda-98b7b4b5032c.webPlatform.png",
+      "sizes": "88x88",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/9e8642fc-f246-6404-898b-1ad84217561b.webPlatform.png",
+      "sizes": "24x24",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/fdc89355-93d8-734d-25e0-23eaa7704d33.webPlatform.png",
+      "sizes": "50x50",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/3a0f268c-77df-9913-03ff-5ca5e8d9e6e7.webPlatform.png",
+      "sizes": "620x300",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/d9831aac-df29-0f0e-a9fc-e13e909f6f31.webPlatform.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/dda88bc1-0608-8876-7d23-abb694109376.webPlatform.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/340f40f7-2024-e746-20f3-e4613b90748a.webPlatform.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/c1efb451-7a5a-b26f-e382-fc159d4c9eeb.webPlatform.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/c2422181-4e00-4f32-dbcd-203cc5f8684a.webPlatform.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/3a70e9eb-79ab-ab5e-e033-0ae7fb85363e.webPlatform.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/7df5c63b-43cf-1ab4-1943-b26442ebf8c3.webPlatform.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/3fefde37-db0d-ad65-a7aa-b2f1e7a85267.webPlatform.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/4316d576-a42e-8641-9981-99a627157b55.webPlatform.png",
+      "sizes": "120x120",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/1735ce46-f965-99b7-d989-2384573ad45e.webPlatform.png",
+      "sizes": "76x76",
+      "type": "image/png"
+    }
+  ],
+  "url": "https://unspash-gallery.netlify.app/",
+  "screenshots": [
+    {
+      "src": "/screenshots/screenshot1.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "fileName": "/screenshots/screenshot1.png",
+      "generated": true
+    },
+    {
+      "src": "/screenshots/screenshot2.png",
+      "sizes": "750x1334",
+      "type": "image/png",
+      "fileName": "/screenshots/screenshot2.png",
+      "generated": true
+    }
+  ]
+}

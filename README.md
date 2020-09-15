@@ -11,3 +11,13 @@ Create a `.env.local` file with below variables and run `yarn install` and `yarn
 ```
 NEXT_PUBLIC_UNSPLASH_KEY=<key here>
 ```
+
+## Screenshots
+
+### Desktop
+
+![](./public/screenshots/screenshot1.png)
+
+### Mobile
+
+![](./public/screenshots/screenshot2.png)
