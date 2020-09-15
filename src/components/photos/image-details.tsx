@@ -64,11 +64,7 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
           <Picture photo={photo} photoType={PHOTO_TYPES.regular} />
         </div>
       </div>
-      <PhotoStats
-        photo={photo}
-        className="fixed bottom-0 left-0 max-w-xl px-3 py-2 mx-auto mt-4 sm:hidden bg-gray-50"
-        style={{ backdropFilter: 'saturate(180%) blur(5px)', background: 'hsla(0,0%,100%,0.8)' }}
-      />
+      <PhotoStats photo={photo} className="fixed bottom-0 left-0 max-w-xl px-3 py-2 mx-auto mt-4 bg-white sm:hidden" />
     </div>
   );
 };

@@ -52,7 +52,7 @@ export const PhotoStats: FunctionComponent<{ photo: Photo; className?: string; s
   }
 
   return (
-    <div className={clsx('flex justify-between w-full items-center', className)} style={style}>
+    <div className={clsx('flex justify-between w-full items-center', className)}>
       <div>
         <p className="text-sm font-extrabold text-center text-blue-600">{likes}</p>
         <p className="text-xs font-medium text-center text-gray-500">Likes</p>
