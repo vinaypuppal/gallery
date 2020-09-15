@@ -123,3 +123,6 @@ out_publish
 .DS_Store
 # Local Netlify folder
 .netlify
+
+# next env
+.env.local
