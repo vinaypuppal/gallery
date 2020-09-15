@@ -11,7 +11,10 @@ export const SearchInput = () => {
   const searchInputRef = useRef<HTMLInputElement>();
   const router = useRouter();
   const [searchTerm, setSearchTerm] = React.useState(() => router.query.search || null);
-  const { data: suggestions, isValidating } = useSWR<AutoCompleteResult>(() => [searchTerm], unsplashAutoComplete);
+  const { data: suggestions, isValidating } = useSWR<AutoCompleteResult>(() => [searchTerm], unsplashAutoComplete, {
+    errorRetryCount: 2,
+    errorRetryInterval: 1000,
+  });
 
   function handleSearchTermChange(event) {
     setSearchTerm(event.target.value);
@@ -58,17 +61,17 @@ export const SearchInput = () => {
         </label>
         <Combobox
           className="w-full"
-          onSelect={(value) =>
+          onSelect={(value) => {
             router.replace(`/?search=${encodeURIComponent(value)}`, undefined, {
               shallow: true,
-            })
-          }>
+            });
+            setSearchTerm(value);
+          }}>
           <ComboboxInput
             ref={searchInputRef}
             type="search"
             name="search"
             id="search-input"
-            selectOnClick
             // @ts-ignore
             value={searchTerm}
             onChange={handleSearchTermChange}

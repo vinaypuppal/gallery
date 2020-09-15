@@ -25,7 +25,11 @@ export const PhotoGrid: FunctionComponent = () => {
     (page, perPage, searchKeyword) =>
       searchKeyword
         ? unsplash.search.photos(searchKeyword, page, perPage).then(toJson)
-        : unsplash.photos.listPhotos(page, perPage).then(toJson)
+        : unsplash.photos.listPhotos(page, perPage).then(toJson),
+    {
+      errorRetryCount: 2,
+      errorRetryInterval: 1000,
+    }
   );
   const isLoadingInitialData = !data && !error;
   const isLoadingMore = isLoadingInitialData || (size > 0 && data && typeof data[size - 1] === 'undefined');
