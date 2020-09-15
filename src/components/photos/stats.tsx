@@ -69,7 +69,7 @@ export const PhotoStats: FunctionComponent<{ photo: Photo; className?: string; s
         <a
           target="_blank"
           href={`${links.download}?force=true`}
-          rel="nofollow"
+          rel="nofollow noopener noreferrer"
           download
           onClick={() => createSnackbar(`Downloading please wait`, { timeout: 5000 })}
           className="inline-flex items-center px-2 py-1 text-xs font-medium leading-4 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded sm:px-3 sm:py-2 sm:text-sm hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green active:bg-green-700">
