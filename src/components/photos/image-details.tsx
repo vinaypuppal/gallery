@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { NextSeo } from 'next-seo';
 import clsx from 'clsx';
 import useSwr from 'swr';
 import { createSnackbar } from '@snackbar/core';
@@ -33,6 +34,7 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
   const { title, description } = getPhotoDetails(photo);
   return (
     <div className={clsx('relative w-full sm:max-w-7xl mx-auto')}>
+      <NextSeo title={title} description={description} />
       {toggleModal ? <CloseButton onClick={toggleModal} /> : null}
       <div className={clsx('flex w-full px-2 sm:px-6 flex-col mx-auto sm:items-center', toggleModal ? 'my-2' : 'mb-2')}>
         <div className="mt-4 mr-10">
