@@ -37,10 +37,7 @@ export const SearchInput = () => {
   }, [router.query.search, searchTerm]);
 
   return (
-    <form
-      className="sticky top-0 z-50 px-4 bg-white shadow sm:px-6 lg:px-16"
-      autoComplete="off"
-      style={{ backdropFilter: 'blur(10px)', background: 'hsla(0,0%,100%,0.8)' }}>
+    <form className="sticky top-0 z-50 px-4 bg-white shadow sm:px-6 lg:px-16" autoComplete="off">
       <div className="flex mx-auto max-w-7xl">
         <label htmlFor="search-input" className="flex items-center flex-none pr-3">
           <span className="sr-only">Search photos</span>
