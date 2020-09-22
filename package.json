@@ -28,6 +28,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
+    "@happykit/analytics": "^1.0.1",
     "@reach/combobox": "^0.11.2",
     "@snackbar/core": "^1.7.0",
     "@types/react-dom": "^16.9.8",
