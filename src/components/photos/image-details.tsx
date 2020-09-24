@@ -18,6 +18,7 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
   const { query } = useRouter();
   const { data: photo, error } = useSwr<Photo>(query.id, (id) => unsplash.photos.getPhoto(id).then(toJson), {
     initialData: imageDetails,
+    revalidateOnMount: true,
   });
 
   if (error) {
@@ -44,6 +45,7 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
       <div
         className={clsx('hidden mx-auto sm:block', toggleModal && 'pb-4')}
         style={{ maxWidth: `calc((100vh - 200px) * ${width / height})` }}>
+        <PhotoStats photo={photo} className="max-w-xl mx-auto mt-4 mb-4 bg-white" />
         <div
           className={clsx('relative bg-gray-100 sm:rounded-lg w-full mx-auto')}
           style={{
@@ -52,7 +54,6 @@ export const PhotoDetails: FunctionComponent<{ photo?: Photo; toggleModal?: () =
           }}>
           <Picture photo={photo} photoType={PHOTO_TYPES.regular} />
         </div>
-        <PhotoStats photo={photo} className="max-w-xl mx-auto mt-4 mb-4 bg-white" />
       </div>
       <div className={clsx('mx-auto sm:hidden')}>
         <div

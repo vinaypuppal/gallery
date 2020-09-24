@@ -20,7 +20,7 @@ export const PhotoGrid: FunctionComponent = () => {
 
   const { data, error, size, setSize } = useSWRInfinite<Photo[] | SearchResults>(
     (pageIndex) => {
-      return [pageIndex + 1, config.perPage, searchKeyword];
+      return [pageIndex + 1, pageIndex > 1 ? config.perPage * 2 : config.perPage, searchKeyword];
     },
     (page, perPage, searchKeyword) =>
       searchKeyword
