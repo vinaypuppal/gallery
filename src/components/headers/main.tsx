@@ -4,7 +4,7 @@ import Link from 'next/link';
 export const MainHeader = () => {
   return (
     <header className="p-4 h-22 sm:h-40 sm:items-center sm:flex bg-gradient-to-r from-green-600 to-grape sm:px-6 lg:px-16">
-      <div className="max-w-7xl">
+      <div className="mx-auto max-w-7xl">
         <Link href="/">
           <a className="flex">
             <svg
