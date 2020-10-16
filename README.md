@@ -4,11 +4,25 @@
 
 ### Landing page
 
-https://www.webpagetest.org/result/200907_CY_1a654d4d75fc4c27cb711c7f54584965/
+https://www.webpagetest.org/result/201016_DiNT_8d5af46457395fbe3a8a0a98b1e56e26/
+
+<details>
+<summary>Landing Page WebpageSpeedTest Screenshot</summary>
+
+![Screenshot 2020-10-16 at 11 56 30 AM](https://user-images.githubusercontent.com/8843216/96220625-ae687080-0fa6-11eb-9f8b-1e67e44a219b.png)
+
+</details>
 
 ### Image details page
 
-https://www.webpagetest.org/result/200915_K6_ed3210b97826828c8552a68dc8b4d4d3/
+https://www.webpagetest.org/result/201016_Di5T_758a1708d0131acc20dc5886f7d54420/
+
+<details>
+<summary>Image Details Page WebpageSpeedTest Screenshot</summary>
+
+![Screenshot 2020-10-16 at 12 20 28 PM](https://user-images.githubusercontent.com/8843216/96222508-06ed3d00-0faa-11eb-86c8-dde17f6f5202.png)
+
+</details>
 
 ## To run locally
 
