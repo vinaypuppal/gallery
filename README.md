@@ -34,10 +34,17 @@ NEXT_PUBLIC_UNSPLASH_KEY=<key here>
 
 ## Screenshots
 
-### Desktop
+<details>
+<summary>Desktop</summary>
 
 ![](./public/screenshots/screenshot1.png)
 
-### Mobile
+</details>
+
+<details>
+<summary>Mobile</summary>
 
 ![](./public/screenshots/screenshot2.png)
+
+</details>
+
