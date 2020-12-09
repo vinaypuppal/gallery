@@ -13,6 +13,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script>console.log(`Unsafe-Inline content!`)</script>
         </body>
       </Html>
     );
