@@ -75,7 +75,7 @@ export const PhotoGrid: FunctionComponent = () => {
                 {column.map((photo) => (
                   <Image key={photo.id} photo={photo} />
                 ))}
-                {columns.length !== 0 && <div className="w-20 h-20" ref={endRef} />}
+                {columns.length !== 0 && <div className="w-full h-64 bg-gray-100" ref={endRef} />}
               </div>
             ))
           )}

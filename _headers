@@ -8,4 +8,5 @@
   X-Content-Type-Options: nosniff
   Strict-Transport-Security: max-age=31536000
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'self'; object-src 'none'; connect-src 'self' https://happykit.dev  https://api.unsplash.com https://cors.vinay.workers.dev https://images.unsplash.com; img-src 'self' https://images.unsplash.com; frame-ancestors 'self'; form-action 'self';
+  Content-Security-Policy-Report-Only: default-src 'none'; report-uri https://rapidsec.ngrok.io/dev/g/r/csp/5c5b8886-92b6-4ce3-93b3-9897d54ba94e/-1/-1/3;
   Link: <https://api.unsplash.com/>; rel=preconnect, <https://images.unsplash.com/>; rel=preconnect

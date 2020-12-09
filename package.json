@@ -5,7 +5,7 @@
   "description": "This is a fully working example of Next.js 9.3 running on [Preact](https://github.com/preactjs/preact) instead of React.",
   "keywords": [],
   "author": "vinaypuppal",
-  "license": "UNLICENSE",
+  "license": "MIT",
   "scripts": {
     "dev": "next",
     "build": "next build",
